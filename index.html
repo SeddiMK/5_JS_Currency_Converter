@@ -1,16 +1,153 @@
 <!DOCTYPE html>
 <html lang="ru">
-	@@include('html/_head.htm',{
-	"title":"Главная"
-	})
-	<body>
-		<div class="wrapper">
-			@@include('html/_header.htm',{})
-			<main class="page">
-			</main>
-			@@include('html/_footer.htm',{})
-		</div>
-		@@include('html/_popup.htm',{})
-		@@include('html/_js.htm',{})
-	</body>
+@@include('html/_head.htm',{
+"title":"Главная"
+})
+
+<body>
+	<div class="wrapper">
+		@@include('html/_header.htm',{})
+		<main class="page">
+			<section class="exchange">
+				<div class="exchange__container">
+					<div class="exchange__block">
+						<div class="exchange__card card">
+							<h3 class="card__title">DNG - RUB</h3>
+							<button class="card__button" type="button">Reverse</button>
+							<div class="card__bottom">
+								<output class="card__output" name="result">--,--</output>
+								<output class="card__output" name="result">--,--</output>
+							</div>
+						</div>
+						<div class="exchange__card card">
+							<h3 class="card__title">USD - RUB</h3>
+							<button class="card__button" type="button">Reverse</button>
+							<div class="card__bottom">
+								<output class="card__output" name="result">--,--</output>
+								<output class="card__output" name="result">--,--</output>
+							</div>
+						</div>
+						<div class="exchange__card card">
+							<h3 class="card__title">USD - DNG</h3>
+							<button class="card__button" type="button">Reverse</button>
+
+							<div class="card__bottom">
+								<output class="card__output" name="result">--,--</output>
+								<output class="card__output" name="result">--,--</output>
+							</div>
+						</div>
+
+
+
+
+					</div>
+				</div>
+			</section>
+		</main>
+		@@include('html/_footer.htm',{})
+	</div>
+	@@include('html/_popup.htm',{})
+	@@include('html/_js.htm',{})
+</body>
+<style>
+	@charset "UTF-8";
+	@import url("https://fonts.googleapis.com/css?family=Montserrat:regular,700&display=swap");
+
+	*,
+	*::before,
+	*::after {
+		padding: 0px;
+		margin: 0px;
+		border: 0px;
+		box-sizing: border-box;
+	}
+
+	html,
+	body {
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		min-width: 320px;
+		width: 100%;
+		color: rgb(30, 29, 29);
+		background-color: #e2e0e6;
+		font-size: 20px;
+	}
+
+	.exchange {
+		background-color: #cbb2f8;
+	}
+
+	.exchange__container {
+		padding: 30px 15px;
+	}
+
+	.exchange__block {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 30px;
+	}
+
+	.exchange__card {}
+
+	.card {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		gap: 30px;
+	}
+
+	.card__output {
+		max-width: 300px;
+		width: 100%;
+
+	}
+
+	.card__title {
+		text-align: center;
+	}
+
+	.card__title:not(:last-child) {
+		margin-bottom: 20px;
+	}
+
+	.card__bottom {
+		display: flex;
+	}
+
+
+	.card__output {
+		display: block;
+		background-color: #fff;
+		border-radius: 7px;
+		width: 50%;
+		padding: 10px 15px;
+	}
+
+	.card__output:not(:last-child) {
+		margin-right: 20px;
+	}
+
+
+
+
+
+
+	.card__button {
+		display: block;
+		margin: 0 auto;
+		padding: 12px 20px;
+		background-color: #fff;
+		border-radius: 7px;
+	}
+
+	.card__button:not(:last-child) {
+		margin-bottom: 20px;
+	}
+
+	.buttons-output {}
+</style>
+
 </html>
