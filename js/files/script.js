@@ -76,7 +76,7 @@ async function getCurrencies() {
 	rates.RUB = (result.Valute.USD.Value / result.Valute.USD.Value).toFixed(1);
 	rates.USD = result.Valute.USD.Value.toFixed(1);
 	rates.GBP = result.Valute.GBP.Value.toFixed(1);
-	console.log(rates.USD);
+	console.log(rates.RUB);
 
 	//=============================================
 	elementRUB.forEach((el) => {
