@@ -31,6 +31,19 @@
 							<h3 class="card__title">USD - VND</h3>
 							<button class="card__button" type="button">Reverse</button>
 
+
+							<div class="card__convert">
+								<label for="name">Получаю:</label>
+								<select id="select" name="" class="card__control">
+									<option value="USD">USD - Доллар США</option>
+									<option value="RUB">RUB - Российский рубль</option>
+									<option value="VND">VND - Вьетнамский донг</option>
+								</select>
+							</div>
+
+							<input id="input" type="number" class="card__control">
+							<input id="result" type="number" class="card__control">
+
 							<div class="card__bottom">
 								<output class="card__output" data-value="USD" name="result">--.--</output>
 								<output class="card__output" data-value="VND" name="result">--.--</output>
@@ -148,6 +161,14 @@
 	}
 
 	.buttons-output {}
+
+	.top {
+		color: green;
+	}
+
+	.bottom {
+		color: red;
+	}
 </style>
 
 </html>
