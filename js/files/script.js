@@ -30,9 +30,11 @@ getCurrenciesVND();
 getCurrencies();
 // Запуск функий async с данными загруженными позже выполнения кода
 // setInterval(getCurrenciesVND, getCurrencies, 10000); //каждые 10сек = 10000 милисек
+
+
 //API курсы для сайта https://www.cbr-xml-daily.ru/#howto
 async function getCurrenciesVND() {
-	const response = await fetch('http://www.floatrates.com/widget/00001935/147fad344eaaa310cff2b8e17d884a4a/usd.json');//http://www.floatrates.com/daily/usd.json
+	const response = await fetch('http://www.floatrates.com/daily/usd.json');//http://www.floatrates.com/daily/usd.json
 	const data = await response.json();
 	const result = await data;
 	//console.log(result);
@@ -64,8 +66,6 @@ async function getCurrenciesVND() {
 	// 	elementUSD.classList.remove('top');
 	// }
 }
-
-console.log(rates);
 //API курсы для сайта https://www.cbr-xml-daily.ru/#howto
 async function getCurrencies() {
 	const response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js');//http://www.floatrates.com/daily/usd.json
@@ -73,14 +73,14 @@ async function getCurrencies() {
 	const result = await data;
 	//console.log(result);
 
-	rates.RUB = (result.Valute.USD.Value / result.Valute.USD.Value).toFixed(1);
-	rates.USD = result.Valute.USD.Value.toFixed(1);
+	rates.RUB = result.Valute.USD.Value.toFixed(1);
+	rates.USD = (result.Valute.USD.Value / result.Valute.USD.Value).toFixed(1);
 	rates.GBP = result.Valute.GBP.Value.toFixed(1);
 	console.log(rates.RUB);
 
 	//=============================================
 	elementRUB.forEach((el) => {
-		el.textContent = rates.USD;
+		el.textContent = rates.RUB;
 	});
 	elementUSD.forEach((el) => {
 		el.textContent = rates.USD;

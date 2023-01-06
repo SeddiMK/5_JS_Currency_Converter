@@ -12,36 +12,37 @@
 				<div class="exchange__container">
 					<div class="exchange__block">
 						<div class="exchange__card card">
-							<h3 class="card__title">VND - RUB</h3>
-							<button class="card__button" type="button">Reverse</button>
+							<h3 class="card__title">VND - USD</h3>
+							<!-- <button class="card__button" type="button">Reverse</button> -->
 							<div class="card__bottom">
 								<output class="card__output" data-value="VND" name="result">--.--</output>
-								<output class="card__output" data-value="RUB" name="result">--.--</output>
-							</div>
-						</div>
-						<div class="exchange__card card">
-							<h3 class="card__title">USD - RUB</h3>
-							<button class="card__button" type="button">Reverse</button>
-							<div class="card__bottom">
 								<output class="card__output" data-value="USD" name="result">--.--</output>
-								<output class="card__output" data-value="RUB" name="result">--.--</output>
 							</div>
 						</div>
 						<div class="exchange__card card">
-							<h3 class="card__title">USD - VND</h3>
-							<button class="card__button" type="button">Reverse</button>
+							<h3 class="card__title">RUB - USD</h3>
+							<!-- <button class="card__button" type="button">Reverse</button> -->
+							<div class="card__bottom">
+								<output class="card__output" data-value="RUB" name="result">--.--</output>
+								<output class="card__output" data-value="USD" name="result">--.--</output>
+							</div>
+						</div>
+						<div class="exchange__card card">
+							<h3 class="card__title">USD</h3>
+							<!-- <button class="card__button" type="button">Reverse</button> -->
 
 
 							<div class="card__convert">
-								<label for="name">Получаю:</label>
+								<p for="name">Что конвертируем:</p>
 								<select id="select" name="" class="card__control">
 									<option value="USD">USD - Доллар США</option>
 									<option value="RUB">RUB - Российский рубль</option>
 									<option value="VND">VND - Вьетнамский донг</option>
 								</select>
 							</div>
-
+							<p class="card__text">Введите сумму:</p>
 							<input id="input" type="number" class="card__control">
+							<p class="card__text">Получаю:</p>
 							<input id="result" type="number" class="card__control">
 
 							<div class="card__bottom">
@@ -162,6 +163,7 @@
 
 	.card__control {
 		padding: 10px 20px;
+		border-radius: 7px;
 	}
 
 	.buttons-output {}
