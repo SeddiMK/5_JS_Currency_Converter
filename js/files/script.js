@@ -62,58 +62,62 @@ getCurrencies();
 // 	// 	elementVND.classList.remove('top');
 // 	// }
 // }
-const input_currency = document.querySelector('#input_currency');
-const output_currency = document.querySelector('#output_currency');
-const input_amount = document.querySelector('#input_amount');
-const output_amount = document.querySelector('#output_amount');
-const exchange = document.querySelector('#exchange');
-const rate = document.querySelector('#rate');
+// const input_currency = document.querySelector('#input_currency');
+// const output_currency = document.querySelector('#output_currency');
+// const input_amount = document.querySelector('#input_amount');
+// const output_amount = document.querySelector('#output_amount');
+// const exchange = document.querySelector('#exchange');
+// const rate = document.querySelector('#rate');
 
-input_currency.addEventListener('change', compute);
-output_currency.addEventListener('change', compute);
-input_amount.addEventListener('input', compute);
-output_amount.addEventListener('input', compute);
+// input_currency.addEventListener('change', compute);
+// output_currency.addEventListener('change', compute);
+// input_amount.addEventListener('input', compute);
+// output_amount.addEventListener('input', compute);
 
-exchange.addEventListener('click', () => {
-	const temp = input_currency.value;
-	input_currency.value = output_currency.value;
-	output_currency.value = temp;
-	compute();
-});
+// exchange.addEventListener('click', () => {
+// 	const temp = input_currency.value;
+// 	input_currency.value = output_currency.value;
+// 	output_currency.value = temp;
+// 	compute();
+// });
 
-function compute() {
-	const input_currency1 = input_currency.value;
-	const output_currency1 = output_currency.value;
+// function compute() {
+// 	const input_currency1 = input_currency.value;
+// 	const output_currency1 = output_currency.value;
 
-	fetch(`https://api.exchangerate-api.com/v4/latest/${input_currency1}`)
-		.then(res => res.json())
-		.then(res => {
-			const new_rate = res.rates[output_currency1];
-			rate.innerText = `1 ${input_currency1} = ${new_rate} ${output_currency1}`
-			output_amount.value = (input_amount.value * new_rate).toFixed(2);
-		})
-}
+// 	fetch(`https://api.exchangerate-api.com/v4/latest/${input_currency1}`)
+// 		.then(res => res.json())
+// 		.then(res => {
+// 			const new_rate = res.rates[output_currency1];
+// 			rate.innerText = `1 ${input_currency1} = ${new_rate} ${output_currency1}`
+// 			output_amount.value = (input_amount.value * new_rate).toFixed(2);
+// 		})
+// }
 
-compute();
+//compute();
 //console.log(exchange_rates);
 //API курсы для сайта https://www.cbr-xml-daily.ru/#howto
 async function getCurrencies() {
-	const response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js');//http://www.floatrates.com/daily/usd.json
+	const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');//http://www.floatrates.com/daily/usd.json//https://www.cbr-xml-daily.ru/daily_json.js
 	const data = await response.json();
 	const result = await data;
 	console.log(result);
 
-	rates.RUB = result.Valute.USD.Value.toFixed(1);
-	rates.USD = (result.Valute.USD.Value / result.Valute.USD.Value).toFixed(1);
-	rates.GBP = result.Valute.GBP;
+	rates.RUB = result.rates.RUB.toFixed(1);
+	rates.VND = result.rates.VND.toFixed(1);
+	rates.USD = (result.rates.USD / result.rates.USD).toFixed(1);
+	rates.GBP = result.rates.GBP;
 
-	rates.USD = result.Valute.USD;
+	rates.USD = result.rates.USD;
 
-	console.log(result.Valute.USD.Value);
+	console.log(result.rates.RUB);
 
 	//=============================================
 	elementRUB.forEach((el) => {
 		el.textContent = rates.RUB;
+	});
+	elementVND.forEach((el) => {
+		el.textContent = rates.VND;
 	});
 	elementUSD.forEach((el) => {
 		el.textContent = rates.USD;
@@ -135,7 +139,49 @@ async function getCurrencies() {
 	// 	elementUSD.classList.remove('bottom');
 	// }
 
+	// }
+
 }
+// async function getCurrencies() {
+// 	const response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js');//http://www.floatrates.com/daily/usd.json
+// 	const data = await response.json();
+// 	const result = await data;
+// 	console.log(result);
+
+// 	rates.RUB = result.Valute.USD.Value.toFixed(1);
+// 	rates.USD = (result.Valute.USD.Value / result.Valute.USD.Value).toFixed(1);
+// 	rates.GBP = result.Valute.GBP;
+
+// 	rates.USD = result.Valute.USD;
+
+// 	console.log(result.Valute.USD.Value);
+
+// 	//=============================================
+// 	elementRUB.forEach((el) => {
+// 		el.textContent = rates.RUB;
+// 	});
+// 	elementUSD.forEach((el) => {
+// 		el.textContent = rates.USD;
+// 	});
+// 	//=============================================
+// 	//elementRUB.textContent = result.rub.name;
+// 	//elementVND.textContent = result.vnd.rate.toFixed(2);
+// 	//=============================================
+
+// 	// изменение цвета курса (упал или вырос) добавляем класс bottom(упал) или top(вырос)
+
+// 	// if (result.Valute.USD.Value > result.Valute.USD.Previous) {
+// 	// 	elementUSD.classList.add('bottom');
+// 	// 	elementUSD.classList.remove('top');
+
+// 	// }
+// 	// else {
+// 	// 	elementUSD.classList.add('top');
+// 	// 	elementUSD.classList.remove('bottom');
+// 	// }
+
+// }
+//================================
 
 //================================
 // Расчет конвертации
@@ -146,6 +192,3 @@ select.oninput = convertValue;//Слушаем изменение в поле se
 function convertValue() {
 	result.value = (parseFloat(input.value) * rates[select.value]).toFixed(1);
 }
-//================================
-
-	// 2.
