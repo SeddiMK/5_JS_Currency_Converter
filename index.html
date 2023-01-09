@@ -31,9 +31,9 @@
 							<h3 class="card__title">USD</h3>
 							<!-- <button class="card__button" type="button">Reverse</button> -->
 
-
+							<p class="card__text">Что конвертируем:</p>
 							<div class="card__convert">
-								<p for="name">Что конвертируем:</p>
+
 								<select id="select" name="" class="card__control">
 									<option value="USD">USD - Доллар США</option>
 									<option value="RUB">RUB - Российский рубль</option>
@@ -124,8 +124,10 @@
 	}
 
 	.card__title:not(:last-child) {
-		margin-bottom: 20px;
+		margin-bottom: -10px;
 	}
+
+	.card__text {}
 
 	.card__bottom {
 		display: flex;

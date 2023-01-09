@@ -26,57 +26,90 @@ const input = document.querySelector('#input');
 const result = document.querySelector('#result');
 const select = document.querySelector('#select');
 // ==================
-getCurrenciesVND();
+//getCurrenciesVND();
 getCurrencies();
 // Запуск функий async с данными загруженными позже выполнения кода
 // setInterval(getCurrenciesVND, getCurrencies, 10000); //каждые 10сек = 10000 милисек
 
 
 //API курсы для сайта https://www.cbr-xml-daily.ru/#howto
-async function getCurrenciesVND() {
-	const response = await fetch('http://www.floatrates.com/daily/usd.json');//http://www.floatrates.com/daily/usd.json
-	const data = await response.json();
-	const result = await data;
-	//console.log(result);
+// async function getCurrenciesVND() {
+// 	const response = await fetch('http://www.floatrates.com/daily/usd.json');//http://www.floatrates.com/daily/usd.json
+// 	const data = await response.json();
+// 	const result = await data;
+// 	//console.log(result);
 
-	//rates.RUB = result.rub.rate.toFixed(1);
-	rates.VND = result.vnd.rate.toFixed(1);
-	// log(rates.VND);
+// 	//rates.RUB = result.rub.rate.toFixed(1);
+// 	rates.VND = result.vnd.rate.toFixed(1);
+// 	// log(rates.VND);
 
-	//=============================================
-	// elementRUB.forEach((el) => {
-	// 	el.textContent = result.rub.rate.toFixed(1);
-	// });
-	elementVND.forEach((el) => {
-		el.textContent = result.vnd.rate.toFixed(1);
-	});
-	// elementUSD.forEach((el) => {
-	// 	el.textContent = '1.0';
-	// });
-	//=============================================
-	//elementRUB.textContent = result.rub.name;
-	//elementVND.textContent = result.vnd.rate.toFixed(2);
-	//=============================================
-	// изменение цвета курса (упал или вырос) добавляем класс bottom(упал) или top(вырос)
-	// if (rates.usd.Value > rates.usd.Previos) {
-	// 	elementUSD.classList.add('top');
-	// 	elementUSD.classList.remove('bottom');
-	// } else {
-	// 	elementUSD.classList.add('bottom');
-	// 	elementUSD.classList.remove('top');
-	// }
+// 	//=============================================
+
+// 	elementVND.forEach((el) => {
+// 		el.textContent = result.vnd.rate.toFixed(1);
+// 	});
+
+// 	//=============================================
+// 	//elementRUB.textContent = result.rub.name;
+// 	//elementVND.textContent = result.vnd.rate.toFixed(2);
+// 	//=============================================
+// 	// изменение цвета курса (упал или вырос) добавляем класс bottom(упал) или top(вырос)
+// 	// if (rates.usd.Value > rates.usd.Previos) {
+// 	// 	elementVND.classList.add('top');
+// 	// 	elementVND.classList.remove('bottom');
+// 	// } else {
+// 	// 	elementVND.classList.add('bottom');
+// 	// 	elementVND.classList.remove('top');
+// 	// }
+// }
+const input_currency = document.querySelector('#input_currency');
+const output_currency = document.querySelector('#output_currency');
+const input_amount = document.querySelector('#input_amount');
+const output_amount = document.querySelector('#output_amount');
+const exchange = document.querySelector('#exchange');
+const rate = document.querySelector('#rate');
+
+input_currency.addEventListener('change', compute);
+output_currency.addEventListener('change', compute);
+input_amount.addEventListener('input', compute);
+output_amount.addEventListener('input', compute);
+
+exchange.addEventListener('click', () => {
+	const temp = input_currency.value;
+	input_currency.value = output_currency.value;
+	output_currency.value = temp;
+	compute();
+});
+
+function compute() {
+	const input_currency1 = input_currency.value;
+	const output_currency1 = output_currency.value;
+
+	fetch(`https://api.exchangerate-api.com/v4/latest/${input_currency1}`)
+		.then(res => res.json())
+		.then(res => {
+			const new_rate = res.rates[output_currency1];
+			rate.innerText = `1 ${input_currency1} = ${new_rate} ${output_currency1}`
+			output_amount.value = (input_amount.value * new_rate).toFixed(2);
+		})
 }
+
+compute();
+//console.log(exchange_rates);
 //API курсы для сайта https://www.cbr-xml-daily.ru/#howto
 async function getCurrencies() {
 	const response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js');//http://www.floatrates.com/daily/usd.json
 	const data = await response.json();
 	const result = await data;
-	//console.log(result);
+	console.log(result);
 
 	rates.RUB = result.Valute.USD.Value.toFixed(1);
 	rates.USD = (result.Valute.USD.Value / result.Valute.USD.Value).toFixed(1);
-	rates.GBP = result.Valute.GBP.Value.toFixed(1);
-	console.log(rates.RUB);
+	rates.GBP = result.Valute.GBP;
+
+	rates.USD = result.Valute.USD;
+
+	console.log(result.Valute.USD.Value);
 
 	//=============================================
 	elementRUB.forEach((el) => {
@@ -89,16 +122,21 @@ async function getCurrencies() {
 	//elementRUB.textContent = result.rub.name;
 	//elementVND.textContent = result.vnd.rate.toFixed(2);
 	//=============================================
+
 	// изменение цвета курса (упал или вырос) добавляем класс bottom(упал) или top(вырос)
-	// if (rates.USD.Value > rates.USD.Previous) {
-	// 	elementUSD.classList.add('top');
-	// 	elementUSD.classList.remove('bottom');
-	// } else {
+
+	// if (result.Valute.USD.Value > result.Valute.USD.Previous) {
 	// 	elementUSD.classList.add('bottom');
 	// 	elementUSD.classList.remove('top');
+
+	// }
+	// else {
+	// 	elementUSD.classList.add('top');
+	// 	elementUSD.classList.remove('bottom');
 	// }
 
 }
+
 //================================
 // Расчет конвертации
 input.oninput = convertValue; //Слушаем изменение в поле input
