@@ -14,6 +14,7 @@ import { flsModules } from "./modules.js";
 // }).then(function (data) {
 // 	console.log(data);
 // })
+
 const rates = {}; //Объект с курсами валют
 // Элементы для отбражения курса валют
 const elementUSD = document.querySelectorAll('[data-value="USD"]');
@@ -26,8 +27,9 @@ const input = document.querySelector('#input');
 const result = document.querySelector('#result');
 const select = document.querySelector('#select');
 // ==================
-//getCurrenciesVND();
 getCurrencies();
+//getCurrenciesVND();
+
 // Запуск функий async с данными загруженными позже выполнения кода
 // setInterval(getCurrenciesVND, getCurrencies, 10000); //каждые 10сек = 10000 милисек
 
@@ -62,6 +64,10 @@ getCurrencies();
 // 	// 	elementVND.classList.remove('top');
 // 	// }
 // }
+
+
+//класный api с выбором валюты
+//https://codepen.io/mounir247/pen/XWJGNvN
 // const input_currency = document.querySelector('#input_currency');
 // const output_currency = document.querySelector('#output_currency');
 // const input_amount = document.querySelector('#input_amount');
@@ -105,12 +111,12 @@ async function getCurrencies() {
 
 	rates.RUB = result.rates.RUB.toFixed(1);
 	rates.VND = result.rates.VND.toFixed(1);
-	rates.USD = (result.rates.USD / result.rates.USD).toFixed(1);
+	//rates.USD = (result.rates.USD / result.rates.USD).toFixed(1);
 	rates.GBP = result.rates.GBP;
 
 	rates.USD = result.rates.USD;
 
-	console.log(result.rates.RUB);
+	//console.log(result.rates.RUB);
 
 	//=============================================
 	elementRUB.forEach((el) => {
@@ -128,20 +134,30 @@ async function getCurrencies() {
 	//=============================================
 
 	// изменение цвета курса (упал или вырос) добавляем класс bottom(упал) или top(вырос)
+	// if (result.rates.USD > result.rates.USD) {
 
-	// if (result.Valute.USD.Value > result.Valute.USD.Previous) {
-	// 	elementUSD.classList.add('bottom');
-	// 	elementUSD.classList.remove('top');
+	// 	elementUSD.forEach((el) => {
+	// 		el.classList.add('bottom')
+	// 	});
+	// 	elementUSD.forEach((el) => {
+	// 		el.classList.remove('top')
+	// 	});
 
 	// }
 	// else {
-	// 	elementUSD.classList.add('top');
-	// 	elementUSD.classList.remove('bottom');
-	// }
+	// 	elementUSD.forEach((el) => {
+	// 		el.classList.add('top')
+	// 	});
+	// 	elementUSD.forEach((el) => {
+	// 		el.classList.remove('bottom')
+	// 	});
 
 	// }
+
+
 
 }
+
 // async function getCurrencies() {
 // 	const response = await fetch('https://www.cbr-xml-daily.ru/daily_json.js');//http://www.floatrates.com/daily/usd.json
 // 	const data = await response.json();
@@ -171,13 +187,23 @@ async function getCurrencies() {
 // 	// изменение цвета курса (упал или вырос) добавляем класс bottom(упал) или top(вырос)
 
 // 	// if (result.Valute.USD.Value > result.Valute.USD.Previous) {
-// 	// 	elementUSD.classList.add('bottom');
-// 	// 	elementUSD.classList.remove('top');
+
+// 	// 	elementUSD.forEach((el) => {
+// 	// 		el.classList.add('bottom')
+// 	// 	});
+// 	// 	elementUSD.forEach((el) => {
+// 	// 		el.classList.remove('top')
+// 	// 	});
 
 // 	// }
 // 	// else {
-// 	// 	elementUSD.classList.add('top');
-// 	// 	elementUSD.classList.remove('bottom');
+// 	// 	elementUSD.forEach((el) => {
+// 	// 		el.classList.add('top')
+// 	// 	});
+// 	// 	elementUSD.forEach((el) => {
+// 	// 		el.classList.remove('bottom')
+// 	// 	});
+
 // 	// }
 
 // }
@@ -191,4 +217,19 @@ select.oninput = convertValue;//Слушаем изменение в поле se
 // Чтобы не было повторения кода
 function convertValue() {
 	result.value = (parseFloat(input.value) * rates[select.value]).toFixed(1);
+
+	const x = result.value;
+	function numberWithSpaces(x) {
+		var parts = x.toString().split(".");
+		parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+		return parts.join(".");
+
+	}
+	result.value = numberWithSpaces(x);
+
+	console.log(numberWithSpaces(x));
+	//console.log(typeof numberWithSpaces(x));
 }
+
+console.log(result.value);
+//=================================
